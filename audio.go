@@ -2,10 +2,11 @@ package opro
 
 import (
 	"encoding/binary"
-	"gordonklaus/portaudio"
 	"net"
 	"net/http"
 	"sync"
+
+	"github.com/gordonklaus/portaudio"
 )
 
 // AudioServer contain output from audio server
