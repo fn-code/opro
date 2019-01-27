@@ -14,9 +14,14 @@ func Listen(addr string) (*AudioServer, error) {
 		logger.Fatalf("error resolve addr : %v\n", err)
 		return nil, err
 	}
+	stream, err := RunAudio()
+	if err != nil {
+		return nil, err
+	}
 	return &AudioServer{
 		buffer: make([]byte, 1024),
 		pc:     lis,
+		stream: stream,
 	}, nil
 }
 
@@ -43,9 +48,11 @@ func (pc *AudioServer) process(addr net.Addr) {
 	switch res {
 	case PlayAudio:
 		fmt.Println("play audio")
+		pc.playAudio()
 		pc.sendStatus(StatusOK, addr)
 	case StopAudio:
 		fmt.Println("stop audio")
+		pc.stopAudio()
 		pc.sendStatus(StatusOK, addr)
 	default:
 		fmt.Println("command error")
