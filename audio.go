@@ -2,11 +2,10 @@ package opro
 
 import (
 	"encoding/binary"
+	"gordonklaus/portaudio"
 	"net"
 	"net/http"
 	"sync"
-
-	"github.com/gordonklaus/portaudio"
 )
 
 // AudioServer contain output from audio server
@@ -29,7 +28,6 @@ const (
 
 // RunAudio is starting audio
 func RunAudio() (*portaudio.Stream, error) {
-
 	portaudio.Initialize()
 	// defer portaudio.Terminate()
 	buffer := make([]float32, sampleRate*seconds)
